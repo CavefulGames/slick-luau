@@ -1,0 +1,5 @@
+globals:
+  love:
+    any: true
+  assert:
+    any: true

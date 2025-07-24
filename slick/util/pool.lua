@@ -1,5 +1,5 @@
-local slicktable = require("slick.util.slicktable")
-local util = require("slick.util.common")
+local slicktable = require("@slick/util/slicktable")
+local util = require("@slick/util/common")
 
 --- @class slick.util.pool
 --- @field type { new: function }
@@ -60,7 +60,7 @@ end
 
 --- Allocates a new type, initializing the new instance with the provided arguments.
 --- @param ... any arguments to pass to the new instance
---- @return any 
+--- @return any
 function pool:allocate(...)
     local result
     if #self.free == 0 then
@@ -68,7 +68,7 @@ function pool:allocate(...)
         if self.type then
             result:init(...)
         end
-        
+
         self.used[result] = true
     else
         result = table.remove(self.free, #self.free)

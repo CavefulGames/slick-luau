@@ -1,14 +1,14 @@
-local cache = require "slick.cache"
-local polygon = require "slick.collision.polygon"
-local shapeGroup = require "slick.collision.shapeGroup"
-local clipper = require "slick.geometry.clipper"
-local enum = require "slick.enum"
-local mesh = require "slick.navigation.mesh"
-local tag = require "slick.tag"
-local util = require "slick.util"
-local slicktable = require "slick.util.slicktable"
-local slickmath = require "slick.util.slickmath"
-local lineSegment = require "slick.collision.lineSegment"
+local cache = require "@slick/cache"
+local polygon = require "@slick/collision/polygon"
+local shapeGroup = require "@slick/collision/shapeGroup"
+local clipper = require "@slick/geometry/clipper"
+local enum = require "@slick/enum"
+local mesh = require "@slick/navigation/mesh"
+local tag = require "@slick/tag"
+local util = require "@slick/util"
+local slicktable = require "@slick/util/slicktable"
+local slickmath = require "@slick/util/slickmath"
+local lineSegment = require "@slick/collision/lineSegment"
 
 --- @alias slick.navigation.navMeshBuilder.combineMode "union" | "difference"
 
@@ -92,7 +92,7 @@ function navMeshBuilder:addLayer(t, combineMode)
             combineMode = "difference"
         end
     end
-    
+
     table.insert(self.layers, {
         key = key,
         combineMode = combineMode,
@@ -195,7 +195,7 @@ function navMeshBuilder:addShape(t, shape, userdata)
         _previousShapeEdges, _nextShapeEdges = _nextShapeEdges, _previousShapeEdges
         _previousShapeUserdata, _nextShapeUserdata = _nextShapeUserdata, _previousShapeUserdata
     end
-    
+
     local m = mesh.new(finalPoints, finalUserdata, finalEdges)
     self:addMesh(t, m)
 end

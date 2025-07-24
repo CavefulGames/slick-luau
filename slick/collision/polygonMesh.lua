@@ -1,4 +1,4 @@
-local polygon = require ("slick.collision.polygon")
+local polygon = require ("@slick/collision/polygon")
 
 --- @class slick.collision.polygonMesh
 --- @field tag any

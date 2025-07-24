@@ -1,5 +1,5 @@
-local point = require("slick.geometry.point")
-local slickmath = require("slick.util.slickmath")
+local point = require("@slick/geometry/point")
+local slickmath = require("@slick/util/slickmath")
 
 --- @class slick.geometry.rectangle
 --- @field topLeft slick.geometry.point
@@ -29,7 +29,7 @@ function rectangle:init(x1, y1, x2, y2)
     x1 = x1 or 0
     x2 = x2 or x1
     y1 = y1 or 0
-    y2 = y2 or y1 
+    y2 = y2 or y1
 
     self.topLeft:init(math.min(x1, x2), math.min(y1, y2))
     self.bottomRight:init(math.max(x1, x2), math.max(y1, y2))

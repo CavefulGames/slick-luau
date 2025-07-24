@@ -1,7 +1,7 @@
-local slickmath = require("slick.util.slickmath")
-local point = require("slick.geometry.point")
-local segment = require("slick.geometry.segment")
-local util = require("slick.util")
+local slickmath = require("@slick/util/slickmath")
+local point = require("@slick/geometry/point")
+local segment = require("@slick/geometry/segment")
+local util = require("@slick/util")
 
 --- @class slick.geometry.triangulation.sweep
 --- @field type slick.geometry.triangulation.sweepType
@@ -55,7 +55,7 @@ function sweep.less(a, b)
                     return direction < 0
                 end
             end
-            
+
             return a.index < b.index
         else
             return false

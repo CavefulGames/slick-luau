@@ -1,8 +1,8 @@
-local cache = require("slick.cache")
-local polygonMesh = require("slick.collision.polygonMesh")
-local enum = require("slick.enum")
-local tag = require("slick.tag")
-local util = require("slick.util")
+local cache = require("@slick/cache")
+local polygonMesh = require("@slick/collision/polygonMesh")
+local enum = require("@slick/enum")
+local tag = require("@slick/tag")
+local util = require("@slick/util")
 
 --- @class slick.collision.shapeGroup
 --- @field tag any
@@ -91,7 +91,7 @@ function shapeGroup:attach()
             else
                 c = self.entity.world.cache
             end
-            
+
             --- @diagnostic disable-next-line: cast-type-mismatch
             --- @cast shape slick.collision.polygonMesh
             shape:build(c.triangulator)

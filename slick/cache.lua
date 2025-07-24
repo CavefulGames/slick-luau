@@ -1,4 +1,4 @@
-local delaunay = require("slick.geometry.triangulation.delaunay")
+local delaunay = require("@slick/geometry/triangulation/delaunay")
 
 --- @class slick.cache
 --- @field triangulator slick.geometry.triangulation.delaunay

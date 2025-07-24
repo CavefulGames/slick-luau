@@ -1,5 +1,5 @@
-local point = require "slick.geometry.point"
-local rectangle = require "slick.geometry.rectangle"
+local point = require "@slick/geometry/point"
+local rectangle = require "@slick/geometry/rectangle"
 
 --- @class slick.navigation.triangle
 --- @field triangle slick.navigation.vertex[]

@@ -1,5 +1,5 @@
-local rectangle = require("slick.geometry.rectangle")
-local slicktable = require("slick.util.slicktable")
+local rectangle = require("@slick/geometry/rectangle")
+local slicktable = require("@slick/util/slicktable")
 
 --- @class slick.collision.quadTreeNode
 --- @field tree slick.collision.quadTree
@@ -99,7 +99,7 @@ end
 --- @param func fun(node: slick.collision.quadTreeNode)
 function quadTreeNode:visit(func)
     func(self)
-    
+
     for _, c in ipairs(self.children) do
         c:visit(func)
     end
@@ -114,7 +114,7 @@ function quadTreeNode:_visit(func, ignore)
     end
 
     func(self)
-    
+
     for _, c in ipairs(self.children) do
         c:visit(func)
     end
@@ -146,7 +146,7 @@ function quadTreeNode:expand(bounds)
     assert(not bounds:overlaps(self.bounds), "bounds is within quad tree")
     assert(bounds:left() > -math.huge and bounds:right() < math.huge, "x axis infinite")
     assert(bounds:top() > -math.huge and bounds:bottom() < math.huge, "y axis infinite")
-    
+
     slicktable.clear(_cachedQuadTreeNodeData)
     self:visit(_gatherData)
 
@@ -223,7 +223,7 @@ function quadTreeNode:expand(bounds)
 end
 
 --- Inserts `data` given the `bounds` into this node.
---- 
+---
 --- `data` must not already be added to this node.
 --- @param data any
 --- @param bounds slick.geometry.rectangle

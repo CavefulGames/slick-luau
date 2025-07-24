@@ -1,8 +1,8 @@
-local point = require("slick.geometry.point")
-local segment = require("slick.geometry.segment")
-local util = require("slick.util")
-local pool = require("slick.util.pool")
-local slicktable = require("slick.util.slicktable")
+local point = require("@slick/geometry/point")
+local segment = require("@slick/geometry/segment")
+local util = require("@slick/util")
+local pool = require("@slick/util/pool")
+local slicktable = require("@slick/util/slicktable")
 
 --- @class slick.worldQueryResponse
 --- @field query slick.worldQuery
@@ -147,17 +147,17 @@ function worldQueryResponse:move(other, copy)
     other.offset:init(self.offset.x, self.offset.y)
     other.touch:init(self.touch.x, self.touch.y)
     other.isProjection = self.isProjection
-    
+
     other.contactPoint:init(self.contactPoint.x, self.contactPoint.y)
     other.distance = self.distance
     other.segment:init(self.segment.a, self.segment.b)
-    
+
     slicktable.clear(other.contactPoints)
     for i, inputContactPoint in ipairs(self.contactPoints) do
         local outputContactPoint = self.query:allocate(point, inputContactPoint.x, inputContactPoint.y)
         table.insert(other.contactPoints, outputContactPoint)
     end
-    
+
     if not copy then
         slicktable.clear(self.contactPoints)
 

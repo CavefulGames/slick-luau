@@ -1,10 +1,10 @@
-local point = require("slick.geometry.point")
-local ray = require("slick.geometry.ray")
-local rectangle = require("slick.geometry.rectangle")
-local segment = require("slick.geometry.segment")
-local util = require("slick.util")
-local slicktable = require("slick.util.slicktable")
-local slickmath = require("slick.util.slickmath")
+local point = require("@slick/geometry/point")
+local ray = require("@slick/geometry/ray")
+local rectangle = require("@slick/geometry/rectangle")
+local segment = require("@slick/geometry/segment")
+local util = require("@slick/util")
+local slicktable = require("@slick/util/slicktable")
+local slickmath = require("@slick/util/slickmath")
 
 --- @class slick.collision.quadTreeQuery
 --- @field tree slick.collision.quadTree

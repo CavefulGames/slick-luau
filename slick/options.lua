@@ -1,4 +1,4 @@
-local slickmath = require "slick.util.slickmath"
+local slickmath = require "@slick/util/slickmath"
 
 --- @class slick.options
 --- @field epsilon number?

@@ -1,10 +1,10 @@
-local lineSegment = require "slick.collision.lineSegment"
-local point = require "slick.geometry.point"
-local ray = require "slick.geometry.ray"
-local rectangle  = require "slick.geometry.rectangle"
-local segment = require "slick.geometry.segment"
-local util = require "slick.util"
-local worldQuery = require "slick.worldQuery"
+local lineSegment = require "@slick/collision/lineSegment"
+local point = require "@slick/geometry/point"
+local ray = require "@slick/geometry/ray"
+local rectangle  = require "@slick/geometry/rectangle"
+local segment = require "@slick/geometry/segment"
+local util = require "@slick/util"
+local worldQuery = require "@slick/worldQuery"
 
 --- @param node slick.collision.quadTreeNode
 local function _drawQuadTreeNode(node)
@@ -112,7 +112,7 @@ local function draw(world, queries, options)
         _drawNormals(world)
         love.graphics.setColor(cr, cg, cb, ca)
     end
-    
+
     if drawText then
         _drawText(world)
     end
@@ -130,10 +130,10 @@ local function draw(world, queries, options)
             elseif util.is(shape, ray) then
                 --- @cast shape slick.geometry.ray
                 love.graphics.line(shape.origin.x, shape.origin.y, shape.origin.x + shape.direction.x * size, shape.origin.y + shape.direction.y * size)
-                
+
                 local left = point.new()
                 shape.direction:left(left)
-                
+
                 local right = point.new()
                 shape.direction:right(right)
 

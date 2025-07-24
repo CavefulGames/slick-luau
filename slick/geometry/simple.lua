@@ -1,7 +1,7 @@
-local clipper = require "slick.geometry.clipper"
-local delaunay = require "slick.geometry.triangulation.delaunay"
-local util = require "slick.util"
-local slickmath = require "slick.util.slickmath"
+local clipper = require "@slick/geometry/clipper"
+local delaunay = require "@slick/geometry/triangulation/delaunay"
+local util = require "@slick/util"
+local slickmath = require "@slick/util/slickmath"
 
 local simple = {}
 

@@ -1,6 +1,6 @@
-local shapeGroup = require("slick.collision.shapeGroup")
-local rectangle = require("slick.geometry.rectangle")
-local transform = require("slick.geometry.transform")
+local shapeGroup = require("@slick/collision/shapeGroup")
+local rectangle = require("@slick/geometry/rectangle")
+local transform = require("@slick/geometry/transform")
 
 --- @class slick.entity
 --- @field item any?

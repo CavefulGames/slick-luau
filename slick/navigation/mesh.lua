@@ -1,13 +1,13 @@
-local quadTree = require "slick.collision.quadTree"
-local quadTreeQuery = require "slick.collision.quadTreeQuery"
-local point = require "slick.geometry.point"
-local rectangle = require "slick.geometry.rectangle"
-local segment = require "slick.geometry.segment"
-local edge = require "slick.navigation.edge"
-local triangle = require "slick.navigation.triangle"
-local vertex = require "slick.navigation.vertex"
-local search = require "slick.util.search"
-local slickmath = require "slick.util.slickmath"
+local quadTree = require "@slick/collision/quadTree"
+local quadTreeQuery = require "@slick/collision/quadTreeQuery"
+local point = require "@slick/geometry/point"
+local rectangle = require "@slick/geometry/rectangle"
+local segment = require "@slick/geometry/segment"
+local edge = require "@slick/navigation/edge"
+local triangle = require "@slick/navigation/triangle"
+local vertex = require "@slick/navigation/vertex"
+local search = require "@slick/util/search"
+local slickmath = require "@slick/util/slickmath"
 
 --- @class slick.navigation.mesh
 --- @field vertices slick.navigation.vertex[]
@@ -96,7 +96,7 @@ function mesh.new(points, userdata, edges, triangles)
 
                 local s = t[i]
                 local t = t[j]
-                
+
                 local e1 = edge.new(self.vertices[s], self.vertices[t])
                 local e2 = edge.new(self.vertices[t], self.vertices[s])
                 table.insert(self.edges, e1)
@@ -296,7 +296,7 @@ function mesh:getContainingTriangle(x, y)
             return hit
         end
     end
-    
+
     return nil
 end
 

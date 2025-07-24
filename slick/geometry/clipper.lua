@@ -1,15 +1,15 @@
-local quadTree = require "slick.collision.quadTree"
-local quadTreeQuery = require "slick.collision.quadTreeQuery"
-local merge = require "slick.geometry.merge"
-local point = require "slick.geometry.point"
-local rectangle = require "slick.geometry.rectangle"
-local segment = require "slick.geometry.segment"
-local delaunay = require "slick.geometry.triangulation.delaunay"
-local edge = require "slick.geometry.triangulation.edge"
-local slicktable = require "slick.util.slicktable"
-local pool = require "slick.util.pool"
-local slickmath = require "slick.util.slickmath"
-local search = require "slick.util.search"
+local quadTree = require "@slick/collision/quadTree"
+local quadTreeQuery = require "@slick/collision/quadTreeQuery"
+local merge = require "@slick/geometry/merge"
+local point = require "@slick/geometry/point"
+local rectangle = require "@slick/geometry/rectangle"
+local segment = require "@slick/geometry/segment"
+local delaunay = require "@slick/geometry/triangulation/delaunay"
+local edge = require "@slick/geometry/triangulation/edge"
+local slicktable = require "@slick/util/slicktable"
+local pool = require "@slick/util/pool"
+local slickmath = require "@slick/util/slickmath"
+local search = require "@slick/util/search"
 
 local function _compareNumber(a, b)
     return a - b
@@ -104,22 +104,22 @@ function clipper.new(triangulator, quadTreeOptions)
         combinedEdges = {},
         combinedUserdata = {},
         merge = merge.new(),
-        
+
         innerPolygonsPool = pool.new(),
-        
+
         pendingPolygonEdges = {},
-        
+
         cachedEdge = edge.new(),
         edges = {},
         edgesPool = pool.new(edge),
-        
+
         subjectPolygon = _newPolygon(quadTreeOptions),
         otherPolygon = _newPolygon(quadTreeOptions),
         resultPolygon = _newPolygon(quadTreeOptions),
-        
+
         cachedPoint = point.new(),
         cachedSegment = segment.new(),
-        
+
         clipCleanupOptions = {},
 
         indexToResultIndex = {},
@@ -132,7 +132,7 @@ function clipper.new(triangulator, quadTreeOptions)
         --- @diagnostic disable-next-line: invisible
         self:_intersect(intersection)
     end
-    
+
     function self.clipCleanupOptions.dissolve(dissolve)
         --- @diagnostic disable-next-line: invisible
         self:_dissolve(dissolve)
@@ -238,10 +238,10 @@ function clipper:reset()
     slicktable.clear(self.otherPolygon.points)
     slicktable.clear(self.otherPolygon.edges)
     slicktable.clear(self.otherPolygon.userdata)
-    
+
     slicktable.clear(self.combinedPoints)
     slicktable.clear(self.combinedEdges)
-    
+
     slicktable.clear(self.edges)
     slicktable.clear(self.pendingPolygonEdges)
 
@@ -299,7 +299,7 @@ function clipper:_addPolygon(points, edges, userdata, options, polygon)
 
     for i = 1, polygon.polygonCount do
         local p = polygon.polygons[i]
-        
+
         _cachedPolygonBounds.topLeft:init(math.huge, math.huge)
         _cachedPolygonBounds.bottomRight:init(-math.huge, -math.huge)
 
@@ -321,10 +321,10 @@ function clipper:_preparePolygon(polygon)
     for i = 1, #polygon.points, 2 do
         local x = polygon.points[i]
         local y = polygon.points[i + 1]
-        
+
         table.insert(self.combinedPoints, x)
         table.insert(self.combinedPoints, y)
-        
+
         local vertexIndex = (i + 1) / 2
         local combinedIndex = vertexIndex + numPoints
         local userdata = self.combinedUserdata[combinedIndex]
@@ -341,7 +341,7 @@ function clipper:_preparePolygon(polygon)
 
         userdata.userdata = polygon.userdata[vertexIndex]
         userdata.hasEdge = false
-        
+
         local index = (i - 1) / 2 + 1
         polygon.pointToCombinedPointIndex[index] = combinedIndex
         polygon.combinedPointToPointIndex[combinedIndex] = index
@@ -412,7 +412,7 @@ function clipper:_mergeUserdata()
     for i = 1, n do
         local index = (i - 1) / 2 + 1
         local combinedUserdata = self.combinedUserdata[index]
-        
+
         if combinedUserdata.parent then
             if combinedUserdata.parent == self.subjectPolygon then
                 self.merge:init(
@@ -436,7 +436,7 @@ function clipper:_mergeUserdata()
         end
     end
 end
-    
+
 --- @private
 function clipper:_segmentInsidePolygon(s, polygon, vertices)
     local isABIntersection, isABCollinear = false, false
@@ -466,7 +466,7 @@ function clipper:_segmentInsidePolygon(s, polygon, vertices)
     local isBInside, isBCollinear = self:_pointInsidePolygon(s.b, polygon, vertices)
 
     local isABInside = (isAInside or isACollinear) and (isBInside or isBCollinear)
-    
+
     return isABIntersection or isABInside, isABCollinear, isAInside, isBInside
 end
 
@@ -642,10 +642,10 @@ function clipper:_addResultEdge(a, b)
 
         local j = (a - 1) * 2 + 1
         local k = j + 1
-        
+
         table.insert(self.resultPoints, self.resultPolygon.points[j])
         table.insert(self.resultPoints, self.resultPolygon.points[k])
-        
+
         if self.resultUserdata then
             self.resultUserdata[aResultIndex] = self.resultPolygon.userdata[a].userdata
         end
@@ -657,13 +657,13 @@ function clipper:_addResultEdge(a, b)
         self.resultIndex = self.resultIndex + 1
 
         self.indexToResultIndex[b] = bResultIndex
-        
+
         local j = (b - 1) * 2 + 1
         local k = j + 1
-        
+
         table.insert(self.resultPoints, self.resultPolygon.points[j])
         table.insert(self.resultPoints, self.resultPolygon.points[k])
-        
+
         if self.resultUserdata then
             self.resultUserdata[bResultIndex] = self.resultPolygon.userdata[b].userdata
         end
@@ -697,7 +697,7 @@ function clipper:intersection(a, b)
 
     local hasAnyCollinearOtherPoints = self:_hasAnyOnSide(ax, ay, bx, by, 0, self.otherPolygon, aOtherPolygons, bOtherPolygons)
     local hasAnyCollinearSubjectPoints = self:_hasAnyOnSide(ax, ay, bx, by, 0, self.otherPolygon, aOtherPolygons, bOtherPolygons)
-    
+
     if (abInsideOther and abInsideSubject) or (not abCollinearOther and ((abInsideOther and hasAnyCollinearSubjectPoints) or (abInsideSubject and hasAnyCollinearOtherPoints))) then
         self:_addResultEdge(a, b)
     end
@@ -714,7 +714,7 @@ function clipper:union(a, b)
 
     local abInsideSubject, abCollinearSubject = self:_segmentInside(ax, ay, bx, by, self.subjectPolygon)
     local abInsideOther, abCollinearOther = self:_segmentInside(ax, ay, bx, by, self.otherPolygon)
-    
+
     abInsideSubject = abInsideSubject or abCollinearSubject
     abInsideOther = abInsideOther or abCollinearOther
 
@@ -744,7 +744,7 @@ function clipper:difference(a, b)
 
     local abInsideSubject = self:_segmentInside(ax, ay, bx, by, self.subjectPolygon)
     local abInsideOther = self:_segmentInside(ax, ay, bx, by, self.otherPolygon)
-    
+
     if abInsideSubject and (not abInsideOther or hasAnyCollinearOtherPoints) then
         self:_addResultEdge(a, b)
     end

@@ -1,5 +1,5 @@
-local point = require("slick.geometry.point")
-local slickmath = require("slick.util.slickmath")
+local point = require("@slick/geometry/point")
+local slickmath = require("@slick/util/slickmath")
 
 --- @class slick.geometry.clipper.merge
 --- @field source "subject" | "other"

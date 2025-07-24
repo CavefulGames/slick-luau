@@ -1,0 +1,6 @@
+{
+	"luau-lsp.require.useOriginalRequireByStringSemantics": true,
+	"luau-lsp.types.definitionFiles": [".d.luau"],
+	"luau-lsp.completion.imports.suggestRequires": true,
+	"luau-lsp.completion.imports.stringRequires.enabled": true
+}

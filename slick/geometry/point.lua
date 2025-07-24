@@ -1,4 +1,4 @@
-local slickmath = require("slick.util.slickmath")
+local slickmath = require("@slick/util/slickmath")
 
 --- @class slick.geometry.point
 --- @field x number
@@ -7,7 +7,7 @@ local point = {}
 local metatable = {
     __index = point,
     __tostring = function(self)
-        return string.format("slick.geometry.point (x = %.2f, y = %.2f)", self.x, self.y)            
+        return string.format("slick.geometry.point (x = %.2f, y = %.2f)", self.x, self.y)
     end
 }
 

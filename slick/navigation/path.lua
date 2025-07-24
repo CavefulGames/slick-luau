@@ -1,8 +1,8 @@
-local point  = require "slick.geometry.point"
-local edge = require "slick.navigation.edge"
-local vertex = require "slick.navigation.vertex"
-local slicktable = require "slick.util.slicktable"
-local slickmath  = require "slick.util.slickmath"
+local point  = require "@slick/geometry/point"
+local edge = require "@slick/navigation/edge"
+local vertex = require "@slick/navigation/vertex"
+local slicktable = require "@slick/util/slicktable"
+local slickmath  = require "@slick/util/slickmath"
 
 --- @class slick.navigation.pathOptions
 --- @field optimize boolean?
@@ -316,7 +316,7 @@ function path:_find(mesh, startX, startY, goalX, goalY, nearest, result)
         if next then
             table.insert(self.path, 1, mesh:getSharedTriangleEdge(current, next))
         end
-        
+
         current = self.graph[current]
     end
 

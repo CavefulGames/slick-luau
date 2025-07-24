@@ -1,17 +1,17 @@
-local cache = require("slick.cache")
-local quadTree = require("slick.collision.quadTree")
-local entity = require("slick.entity")
-local point = require("slick.geometry.point")
-local ray = require("slick.geometry.ray")
-local rectangle  = require("slick.geometry.rectangle")
-local segment = require("slick.geometry.segment")
-local transform = require("slick.geometry.transform")
-local defaultOptions = require("slick.options")
-local responses = require("slick.responses")
-local worldQuery = require("slick.worldQuery")
-local util = require("slick.util")
-local slickmath = require("slick.util.slickmath")
-local slicktable = require("slick.util.slicktable")
+local cache = require("@slick/cache")
+local quadTree = require("@slick/collision/quadTree")
+local entity = require("@slick/entity")
+local point = require("@slick/geometry/point")
+local ray = require("@slick/geometry/ray")
+local rectangle  = require("@slick/geometry/rectangle")
+local segment = require("@slick/geometry/segment")
+local transform = require("@slick/geometry/transform")
+local defaultOptions = require("@slick/options")
+local responses = require("@slick/responses")
+local worldQuery = require("@slick/worldQuery")
+local util = require("@slick/util")
+local slickmath = require("@slick/util/slickmath")
+local slicktable = require("@slick/util/slicktable")
 
 --- @alias slick.worldFilterQueryFunc fun(item: any, other: any, shape: slick.collision.shape, otherShape: slick.collision.shape): string | slick.worldVisitFunc | false
 local function defaultWorldFilterQueryFunc()
@@ -97,7 +97,7 @@ function world.new(width, height, options)
 
     self.cachedQuery = worldQuery.new(self)
     self.cachedPushQuery = worldQuery.new(self)
-    
+
     self:addResponse("slide", responses.slide)
     self:addResponse("touch", responses.touch)
     self:addResponse("cross", responses.cross)
@@ -213,7 +213,7 @@ function world:push(item, filter, a, b, c)
     local cachedQuery = self.cachedQuery
     local x, y = transform.x, transform.y
     local originalX, originalY = x, y
-    
+
     local visited = self.cachedPushQuery
     visited:reset()
 
@@ -246,7 +246,7 @@ function world:push(item, filter, a, b, c)
 
         x = x + offsetX
         y = y + offsetY
-        
+
         visited:push(result)
         self:project(item, x, y, x, y, filter, cachedQuery)
     end
@@ -274,15 +274,15 @@ function world:rotate(item, angle, rotateFilter, pushFilter, query)
     query = query or worldQuery.new(self)
 
     local e = self:get(item)
-    
+
     e.transform:copy(_cachedTransform)
     _cachedTransform:setTransform(nil, nil, angle)
-    
+
     _cachedRotateBounds:init(e.bounds:left(), e.bounds:top(), e.bounds:right(), e.bounds:bottom())
     e:setTransform(_cachedTransform)
     _cachedRotateBounds:expand(e.bounds.topLeft.x, e.bounds.topLeft.y)
     _cachedRotateBounds:expand(e.bounds.bottomRight.x, e.bounds.bottomRight.y)
-    
+
     slicktable.clear(_cachedRotateItems)
     _cachedRotateItems[item] = true
 
@@ -428,19 +428,19 @@ function world:check(item, goalX, goalY, filter, query)
 
     slicktable.clear(_cachedRemappedHandlers)
 
-    
+
     local cachedQuery = self.cachedQuery
     filter = filter or defaultWorldFilterQueryFunc
-    
+
     local e = self:get(item)
     local previousQuery = self.previousEntityCollisions[e]
     local x, y = e.transform.x, e.transform.y
-    
+
     self:project(item, x, y, goalX, goalY, filter, cachedQuery)
     if #cachedQuery.results == 0 then
         return goalX, goalY, query.results, #query.results, query
     end
-    
+
     local actualX, actualY
     local bounces = 0
     while bounces < self.options.maxBounces and #cachedQuery.results > 0 do
@@ -541,7 +541,7 @@ function world:optimize(width, height, options)
 
     width = width or realWidth
     height = height or realHeight
-    
+
     local x = options and options.quadTreeX or x1
     local y = options and options.quadTreeY or y1
 

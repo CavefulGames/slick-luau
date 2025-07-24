@@ -1,0 +1,9 @@
+{
+  "aliases": {
+    "lune": "~/.lune/.typedefs/0.8.9/",
+    "slick": "./slick/"
+  },
+  "lint": {
+    "LocalShadow": false
+  }
+}

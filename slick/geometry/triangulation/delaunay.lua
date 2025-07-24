@@ -1,16 +1,16 @@
-local point = require("slick.geometry.point")
-local segment = require("slick.geometry.segment")
-local dissolve = require("slick.geometry.triangulation.dissolve")
-local edge = require("slick.geometry.triangulation.edge")
-local hull = require("slick.geometry.triangulation.hull")
-local intersection = require("slick.geometry.triangulation.intersection")
-local delaunaySortedEdge = require("slick.geometry.triangulation.delaunaySortedEdge")
-local delaunaySortedPoint = require("slick.geometry.triangulation.delaunaySortedPoint")
-local sweep = require("slick.geometry.triangulation.sweep")
-local pool = require("slick.util.pool")
-local search = require("slick.util.search")
-local slickmath = require("slick.util.slickmath")
-local slicktable = require("slick.util.slicktable")
+local point = require("@slick/geometry/point")
+local segment = require("@slick/geometry/segment")
+local dissolve = require("@slick/geometry/triangulation/dissolve")
+local edge = require("@slick/geometry/triangulation/edge")
+local hull = require("@slick/geometry/triangulation/hull")
+local intersection = require("@slick/geometry/triangulation/intersection")
+local delaunaySortedEdge = require("@slick/geometry/triangulation/delaunaySortedEdge")
+local delaunaySortedPoint = require("@slick/geometry/triangulation/delaunaySortedPoint")
+local sweep = require("@slick/geometry/triangulation/sweep")
+local pool = require("@slick/util/pool")
+local search = require("@slick/util/search")
+local slickmath = require("@slick/util/slickmath")
+local slicktable = require("@slick/util/slicktable")
 
 --- @class slick.geometry.triangulation.delaunayTriangulationOptions
 --- @field public refine boolean?
@@ -156,7 +156,7 @@ end
 --- @return slick.util.search.compareResult
 local function _compareSortedEdgePoint(e, p)
     local left = e.segment:left()
-    
+
     return slickmath.sign(left - p.x)
 end
 
@@ -179,13 +179,13 @@ function delaunay.new(options)
         pointsPool = pool.new(point),
         points = {},
         pointsToEdges = {},
-        
+
         intersection = intersection.new(),
         dissolve = dissolve.new(),
-        
+
         sortedPointsPool = pool.new(delaunaySortedPoint),
         sortedPoints = {},
-        
+
         segmentsPool = pool.new(segment),
         edgesPool = pool.new(edge),
         sortedEdgesPool = pool.new(delaunaySortedEdge),
@@ -395,12 +395,12 @@ end
 function delaunay:_dedupeEdges()
     local didDedupe = false
     local edges = self.edges
-    
+
     local index = 1
     while index < #edges - 1 do
         local e = edges[index]
         local n = edges[index + 1]
-        
+
         if e.a == e.b then
             didDedupe = true
             self:_dissolveEdge(e.a, e.b)
@@ -501,18 +501,18 @@ function delaunay:_splitEdgesAgainstEdges(intersect, userdata)
                 table.remove(activeEdges, j)
             end
         end
-        
+
         local intersected = false
         for j, otherEdge in ipairs(activeEdges) do
             local overlaps = selfEdge.segment:overlap(otherEdge.segment)
             local connected = (selfEdge.edge.a == otherEdge.edge.a or selfEdge.edge.a == otherEdge.edge.b or selfEdge.edge.b == otherEdge.edge.a or selfEdge.edge.b == otherEdge.edge.b)
-            
+
             if overlaps and not connected then
                 local a1 = points[selfEdge.edge.a]
                 local b1 = points[selfEdge.edge.b]
                 local a2 = points[otherEdge.edge.a]
                 local b2 = points[otherEdge.edge.b]
-                
+
                 local intersection, x, y, u, v = slickmath.intersection(a1, b1, a2, b2)
                 if intersection and x and y and u and v then
                     intersected = true
@@ -538,7 +538,7 @@ function delaunay:_splitEdgesAgainstEdges(intersect, userdata)
                         u,
                         userdata and userdata[selfEdge.edge.a],
                         userdata and userdata[selfEdge.edge.b])
-                        
+
                     self.intersection:setRightEdge(
                         a2, b2,
                         otherEdge.edge.a, otherEdge.edge.b,
@@ -609,7 +609,7 @@ function delaunay:clean(points, edges, userdata, options, outPoints, outEdges, o
 
     local dissolveFunc = options.dissolve == nil and defaultCleanupOptions.dissolve or options.dissolve
     dissolveFunc = dissolveFunc or dissolve.default
-    
+
     local intersectFunc = options.intersect == nil and defaultCleanupOptions.intersect or options.intersect
     intersectFunc = intersectFunc or intersection.default
 
@@ -883,7 +883,7 @@ function delaunay:_getOppositeVertex(j, i)
             return vertices[k - 1]
         end
     end
-    
+
     return nil
 end
 
@@ -1222,7 +1222,7 @@ function delaunay:_buildPolygons()
             local a = vertex
             local b = triangle[j % #triangle + 1]
             self.cachedEdge:init(a, b)
-            
+
             local index = search.first(edges, self.cachedEdge, edge.compare)
             if not index then
                 index = search.lessThan(edges, self.cachedEdge, edge.compare) + 1
@@ -1231,7 +1231,7 @@ function delaunay:_buildPolygons()
             end
         end
     end
-    
+
     for i = 1, #triangles do
         local polygon = polygons[i]
         local vertices = polygon.vertices
@@ -1266,7 +1266,7 @@ end
 function delaunay:_replacePolygon(polygon, otherPolygon)
     local edges = self.polygonization.edges
     local edgesToPolygons = self.polygonization.edgesToPolygons
-    
+
     local vertices = polygon.vertices
     for i, vertex in ipairs(vertices) do
         local a = vertex
@@ -1485,32 +1485,32 @@ function delaunay:reset()
     slicktable.clear(self.sortedEdges)
     slicktable.clear(self.sweeps)
     slicktable.clear(self.hulls)
-    
+
     self.triangulation.n = 0
     slicktable.clear(self.triangulation.sorted)
     slicktable.clear(self.triangulation.triangles)
-    
+
     slicktable.clear(self.filter.flags)
     slicktable.clear(self.filter.neighbors)
     slicktable.clear(self.filter.constraints)
     slicktable.clear(self.filter.current)
     slicktable.clear(self.filter.next)
-    
+
     self.index.n = 0
     slicktable.clear(self.index.stack)
-    
+
     self.polygonization.n = 0
     slicktable.clear(self.polygonization.edges)
     slicktable.clear(self.polygonization.pending)
-    
+
     for i = 1, #self.polygonization.edgesToPolygons do
         slicktable.clear(self.polygonization.edgesToPolygons[i])
     end
-    
+
     for i = 1, #self.index.vertices do
         slicktable.clear(self.index.vertices[i])
     end
-    
+
     for i = 1, #self.index.triangles do
         slicktable.clear(self.index.triangles[i])
     end
@@ -1526,10 +1526,10 @@ function delaunay:clear()
     self.sortedEdgesPool:clear()
     self.sweepPool:clear()
     self.hullsPool:clear()
-    
+
     slicktable.clear(self.polygonization.polygons)
     slicktable.clear(self.polygonization.edgesToPolygons)
-    
+
     slicktable.clear(self.activeEdges)
     slicktable.clear(self.temporaryEdges)
     slicktable.clear(self.pendingEdges)
@@ -1768,12 +1768,12 @@ end
 function delaunay:_addPointToHulls(point, index)
     local lowIndex = search.lessThan(self.hulls, point, hull.point)
     local highIndex = search.greaterThan(self.hulls, point, hull.point)
-    
+
     if self.debug then
         assert(lowIndex, "hull for lower bound not found")
         assert(highIndex, "hull for upper bound not found")
     end
-    
+
     for i = lowIndex, highIndex - 1 do
         local hull = self.hulls[i]
 

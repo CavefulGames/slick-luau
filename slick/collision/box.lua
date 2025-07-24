@@ -1,5 +1,5 @@
-local commonShape = require("slick.collision.commonShape")
-local transform = require("slick.geometry.transform")
+local commonShape = require("@slick/collision/commonShape")
+local transform = require("@slick/geometry/transform")
 
 --- @class slick.collision.box: slick.collision.commonShape
 local box = setmetatable({}, { __index = commonShape })

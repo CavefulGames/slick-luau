@@ -1,9 +1,9 @@
-local quadTreeNode = require("slick.collision.quadTreeNode")
-local point = require("slick.geometry.point")
-local rectangle = require("slick.geometry.rectangle")
-local util = require("slick.util")
-local pool = require("slick.util.pool")
-local slicktable = require("slick.util.slicktable")
+local quadTreeNode = require("@slick/collision/quadTreeNode")
+local point = require("@slick/geometry/point")
+local rectangle = require("@slick/geometry/rectangle")
+local util = require("@slick/util")
+local pool = require("@slick/util/pool")
+local slicktable = require("@slick/util/slicktable")
 
 --- @class slick.collision.quadTree
 --- @field root slick.collision.quadTreeNode
@@ -223,13 +223,13 @@ function quadTree:_tryExpand(r)
     while not r:overlaps(self.bounds) do
         self.maxLevels = self.maxLevels + 1
         self.root = self.root:expand(r)
-        
+
         self.bounds:init(self.root:left(), self.root:top(), self.root:right(), self.root:bottom())
     end
 end
 
 --- Inserts `data` into the tree using the provided bounds.
---- 
+---
 --- `data` must **not** be in the tree already; if it is, this method will raise an error.
 --- Instead, use `quadTree.update` to move (or insert) an object.
 --- @param data any
@@ -240,7 +240,7 @@ end
 --- @return slick.collision.quadTree
 function quadTree:insert(data, a, b, c, d)
     assert(not self.data[data], "data needs to be removed before inserting or use update")
-    
+
     local r = _getRectangle(a, b, c, d)
     self:_tryExpand(r)
 
@@ -249,7 +249,7 @@ function quadTree:insert(data, a, b, c, d)
 end
 
 --- Removes `data` from the tree.
---- 
+---
 --- `data` **must** be in the tree already; if it is not, this method will raise an assert.
 --- @param data any
 function quadTree:remove(data)
@@ -263,7 +263,7 @@ function quadTree:remove(data)
 end
 
 --- Updates `data` with new bounds.
---- 
+---
 --- This essentially safely does a `remove` then `insert`.
 --- @param data any
 --- @overload fun(self: slick.collision.quadTree, data: any, rectangle: slick.geometry.rectangle)

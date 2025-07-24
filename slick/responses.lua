@@ -1,4 +1,4 @@
-local point = require "slick.geometry.point"
+local point = require "@slick/geometry/point"
 
 local _cachedSlideCurrentPosition = point.new()
 local _cachedSlideTouchPosition = point.new()
@@ -22,20 +22,20 @@ local function slide(world, query, response, previousResponse, x, y, goalX, goal
     _cachedSlideCurrentPosition:init(x, y)
     _cachedSlideTouchPosition:init(response.touch.x, response.touch.y)
     _cachedSlideGoalPosition:init(goalX, goalY)
-    
+
     response.normal:left(_cachedSlideGoalDirection)
-    
+
     _cachedSlideCurrentPosition:direction(_cachedSlideGoalPosition, _cachedSlideNewGoalPosition)
     _cachedSlideNewGoalPosition:normalize(_cachedSlideDirection)
-    
+
     local goalDotDirection = _cachedSlideNewGoalPosition:dot(_cachedSlideGoalDirection)
     _cachedSlideGoalDirection:multiplyScalar(goalDotDirection, _cachedSlideGoalDirection)
     _cachedSlideTouchPosition:add(_cachedSlideGoalDirection, _cachedSlideNewGoalPosition)
-    
+
     local newGoalX = _cachedSlideNewGoalPosition.x
     local newGoalY = _cachedSlideNewGoalPosition.y
     local touchX, touchY = response.touch.x, response.touch.y
-    
+
     result:push(response)
     world:project(response.item, touchX, touchY, newGoalX, newGoalY, filter, query)
 
@@ -63,10 +63,10 @@ end
 --- @return number, number, number, number, string?, slick.worldQueryResponse?
 local function touch(world, query, response, previousResponse, x, y, goalX, goalY, filter, result)
     local touchX, touchY = response.touch.x, response.touch.y
-    
+
     result:push(response)
     world:project(response.item, x, y, response.touch.x, response.touch.y, filter, query)
-    
+
     return touchX, touchY, touchX, touchY, nil, nil
 end
 

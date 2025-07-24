@@ -1,8 +1,8 @@
-local interval = require "slick.collision.interval"
-local point = require "slick.geometry.point"
-local segment = require "slick.geometry.segment"
-local util = require "slick.util"
-local slickmath = require "slick.util.slickmath"
+local interval = require "@slick/collision/interval"
+local point = require "@slick/geometry/point"
+local segment = require "@slick/geometry/segment"
+local util = require "@slick/util"
+local slickmath = require "@slick/util/slickmath"
 
 local SIDE_NONE  = 0
 local SIDE_LEFT  = -1
@@ -149,22 +149,22 @@ function shapeCollisionResolutionQuery:_performPolygonPolygonProjection(selfShap
     self.currentShape.offset:init(selfOffset.x, selfOffset.y)
     self.otherShape.shape = otherShape
     self.otherShape.offset:init(otherOffset.x, otherOffset.y)
-    
+
     self.currentShape.shape:getAxes(self)
     self:_swapShapes()
     self.currentShape.shape:getAxes(self)
     self:_swapShapes()
-    
+
     otherVelocity:sub(selfVelocity, _cachedRelativeVelocity)
     selfVelocity:add(selfShape.center, _cachedSelfFutureCenter)
 
     selfVelocity:sub(selfOffset, _cachedSelfVelocityMinusOffset)
-    
+
     self.depth = math.huge
-    
+
     local hit = true
     local side = SIDE_NONE
-    
+
     local currentInterval = self.currentShape.currentInterval
     local otherInterval = self.otherShape.currentInterval
 
@@ -263,17 +263,17 @@ function shapeCollisionResolutionQuery:_performPolygonPolygonProjection(selfShap
     if hit and not isTouching and self.firstTime <= 0 and self.depth < math.huge then
         local selfSpeed = selfVelocity:length()
         local otherSpeed = otherVelocity:length()
-        
+
         _cachedSelfVelocityDirection:init(selfVelocity.x, selfVelocity.y)
         if selfSpeed > 0 then
             _cachedSelfVelocityDirection:divideScalar(selfSpeed, _cachedSelfVelocityDirection)
         end
-        
+
         _cachedOtherVelocityDirection:init(otherVelocity.x, otherVelocity.y)
         if otherSpeed > 0 then
             _cachedOtherVelocityDirection:divideScalar(otherSpeed, _cachedOtherVelocityDirection)
         end
-        
+
         local areShapesMovingApart = selfSpeed == 0 or otherSpeed == 0 or _cachedSelfVelocityDirection:dot(_cachedOtherVelocityDirection) <= self.epsilon
         local isOtherShapeMovingAwayFromEdge = _cachedSelfVelocityDirection:dot(self.normal) > -self.epsilon
         local isSelfShapeMovingFasterishThanOtherShape = selfSpeed >= otherSpeed
@@ -326,7 +326,7 @@ function shapeCollisionResolutionQuery:_performPolygonPolygonProjection(selfShap
             selfShape.vertices[currentInterval.indices[currentInterval.maxIndex - 1].index]:add(self.currentOffset, _cachedSegmentB.a)
             selfShape.vertices[currentInterval.indices[currentInterval.maxIndex].index]:add(self.currentOffset, _cachedSegmentB.b)
         end
-        
+
         self.normal:normalize(self.normal)
         self.normal:left(self.normal)
 
@@ -365,7 +365,7 @@ function shapeCollisionResolutionQuery:_performPolygonPolygonProjection(selfShap
                     _cachedSegmentB.a:add(self.otherOffset, _cachedSegmentB.a)
                     _cachedSegmentB.b:add(self.otherOffset, _cachedSegmentB.b)
                 end
-                
+
                 if _cachedSegmentA:overlap(_cachedSegmentB) then
                     local intersection, x, y = slickmath.intersection(_cachedSegmentA.a, _cachedSegmentA.b, _cachedSegmentB.a, _cachedSegmentB.b, self.epsilon)
                     if intersection and x and y then
@@ -511,16 +511,16 @@ function shapeCollisionResolutionQuery:_handleTunnelAxis(axis, velocity)
         if speed <= 0 then
             return false, nil
         end
-        
+
         local u = (selfInterval.min - otherInterval.max) / speed
         if u > self.firstTime then
             side = SIDE_LEFT
             self.firstTime = u
         end
-        
+
         local v = (selfInterval.max - otherInterval.min) / speed
         self.lastTime = math.min(self.lastTime, v)
-        
+
         if self.firstTime > self.lastTime then
             return false, nil
         end

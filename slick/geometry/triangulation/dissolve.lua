@@ -1,4 +1,4 @@
-local point = require("slick.geometry.point")
+local point = require("@slick/geometry/point")
 
 --- @class slick.geometry.triangulation.dissolve
 --- @field point slick.geometry.point

@@ -1,5 +1,5 @@
-local point = require("slick.geometry.point")
-local slickmath = require("slick.util.slickmath")
+local point = require("@slick/geometry/point")
+local slickmath = require("@slick/util/slickmath")
 
 --- @class slick.geometry.triangulation.intersection
 --- @field a1 slick.geometry.point

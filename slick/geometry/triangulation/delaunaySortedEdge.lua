@@ -1,5 +1,5 @@
-local segment = require("slick.geometry.segment")
-local edge = require("slick.geometry.triangulation.edge")
+local segment = require("@slick/geometry/segment")
+local edge = require("@slick/geometry/triangulation/edge")
 
 --- @class slick.geometry.triangulation.delaunaySortedEdge
 --- @field edge slick.geometry.triangulation.edge

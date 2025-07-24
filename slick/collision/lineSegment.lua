@@ -1,8 +1,8 @@
-local commonShape = require("slick.collision.commonShape")
-local point = require("slick.geometry.point")
-local segment = require("slick.geometry.segment")
-local transform = require("slick.geometry.transform")
-local slickmath = require("slick.util.slickmath")
+local commonShape = require("@slick/collision/commonShape")
+local point = require("@slick/geometry/point")
+local segment = require("@slick/geometry/segment")
+local transform = require("@slick/geometry/transform")
+local slickmath = require("@slick/util/slickmath")
 
 --- @class slick.collision.lineSegment: slick.collision.commonShape
 --- @field segment slick.geometry.segment

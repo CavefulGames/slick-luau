@@ -1,4 +1,4 @@
-local slickmath = require("slick.util.slickmath")
+local slickmath = require("@slick/util/slickmath")
 
 --- Represents a transform.
 --- @class slick.geometry.transform

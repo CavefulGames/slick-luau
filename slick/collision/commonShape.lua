@@ -1,8 +1,8 @@
-local point = require("slick.geometry.point")
-local rectangle = require("slick.geometry.rectangle")
-local segment = require("slick.geometry.segment")
-local slickmath = require("slick.util.slickmath")
-local slicktable = require("slick.util.slicktable")
+local point = require("@slick/geometry/point")
+local rectangle = require("@slick/geometry/rectangle")
+local segment = require("@slick/geometry/segment")
+local slickmath = require("@slick/util/slickmath")
+local slicktable = require("@slick/util/slicktable")
 
 --- @class slick.collision.commonShape
 --- @field tag any
@@ -72,7 +72,7 @@ function commonShape:addNormal(x, y)
         normal = point.new()
         self.preTransformedNormals[self.normalCount] = normal
     end
-    
+
     normal:init(x, y)
     normal:normalize(normal)
 
@@ -183,18 +183,18 @@ function commonShape:distance(p)
 
     for i = 1, self.vertexCount do
         local j = i % self.vertexCount + 1
-        
+
         _cachedDistanceSegment:init(self.vertices[i], self.vertices[j])
         local distanceSquared = _cachedDistanceSegment:distanceSquared(p)
         if distanceSquared < minDistance then
             minDistance = distanceSquared
         end
     end
-    
+
     if minDistance < math.huge then
         return math.sqrt(minDistance)
     end
-    
+
     return math.huge
 end
 

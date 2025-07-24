@@ -1,5 +1,5 @@
-local slickmath = require("slick.util.slickmath")
-local slicktable = require("slick.util.slicktable")
+local slickmath = require("@slick/util/slickmath")
+local slicktable = require("@slick/util/slicktable")
 
 --- @class slick.geometry.triangulation.hull
 --- @field a slick.geometry.point

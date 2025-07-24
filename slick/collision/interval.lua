@@ -1,4 +1,4 @@
-local slicktable = require "slick.util.slicktable"
+local slicktable = require "@slick/util/slicktable"
 
 --- @alias slick.collision.intervalIndex {
 ---     value: number,

@@ -1,4 +1,4 @@
-local point = require("slick.geometry.point")
+local point = require("@slick/geometry/point")
 
 --- @class slick.geometry.segment
 --- @field a slick.geometry.point
@@ -63,15 +63,15 @@ function segment:projectLine(p, result)
         result:init(self.a.x, self.a.y)
         return 0
     end
-    
+
     p:sub(self.a, _cachedProjectionPMinusA)
     self.b:sub(self.a, _cachedProjectionBMinusA)
-    
+
     local t = _cachedProjectionPMinusA:dot(_cachedProjectionBMinusA) / distanceSquared
-    
+
     _cachedProjectionBMinusA:multiplyScalar(t, result)
     self.a:add(result, result)
-    
+
     return t
 end
 
@@ -84,12 +84,12 @@ function segment:project(p, result)
         result:init(self.a.x, self.a.y)
         return 0
     end
-    
+
     p:sub(self.a, _cachedProjectionPMinusA)
     self.b:sub(self.a, _cachedProjectionBMinusA)
-    
+
     local t = math.max(0, math.min(1, _cachedProjectionPMinusA:dot(_cachedProjectionBMinusA) / distanceSquared))
-    
+
     _cachedProjectionBMinusA:multiplyScalar(t, result)
     self.a:add(result, result)
 
