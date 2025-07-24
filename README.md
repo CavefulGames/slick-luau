@@ -2,7 +2,7 @@
 
 **slick** is a simple two-dimensional swept collision library with support for polygons inspired by the simplicity and robustness of [bump.lua](https://github.com/kikito/bump.lua).
 
-![demo of slick](./assets/demo.gif)
+![demo of slick](https://raw.githubusercontent.com/erinmaus/slick/refs/heads/main/assets/demo.gif)
 
 * Supports polygon-polygon, circle-polygon, and circle-circle collisions.
 * All shapes are swept, meaning tunneling isn't possible.
@@ -189,17 +189,17 @@ There are currently three built-in collision responses:
 
 * `"slide"`: "slides" along other entities
 
-  ![demo of slick slide respone](./assets/response_slide.gif)
+  ![demo of slick slide respone](https://raw.githubusercontent.com/erinmaus/slick/refs/heads/main/assets/response_slide.gif)
 * `"touch"`: stops moving as soon as a collision between entities occurs
 
-  ![demo of slick touch respone](./assets/response_touch.gif)
+  ![demo of slick touch respone](https://raw.githubusercontent.com/erinmaus/slick/refs/heads/main/assets/response_touch.gif)
 * `"cross"`: goes through another entity as if it the moving entity is a ghost
 
-  ![demo of slick cross respone](./assets/response_cross.gif)
+  ![demo of slick cross respone](https://raw.githubusercontent.com/erinmaus/slick/refs/heads/main/assets/response_cross.gif)
 
 * `"bounce"`: "bounces" against the entity; this adds a (`extra.bounceNormal.x`, `extra.bounceNormal.y`) representing the reflection vector to the `slick.worldQueryResponse` (see below). The bounce normal can be used to change the direction the entity is moving in.
 
-  ![demo of slick bounce respone](./assets/response_bounce.gif)
+  ![demo of slick bounce respone](https://raw.githubusercontent.com/erinmaus/slick/refs/heads/main/assets/response_bounce.gif)
 
 `collisions` is a list of `slick.worldQueryResponse` of all the collisions that were handled during the movement and `count` is equal to `#collisions`. Some fields of note are:
 
@@ -314,7 +314,7 @@ Below is an API reference for **slick**.
 * `slick.world:push(item, filter: slick.worldFilterQueryFunc, x: number, y: number, shape: slick.collision.shapelike?): number, number` **or** `slick.world:push(item, filter: slick.worldFilterQueryFunc, transform: slick.geometry.transform, shape: slick.collision.shapelike?): number, number`
 
   Update an entity and attempts to push it out of any objects it might colliding with.
-  
+
   Like `slick.world.update`, takes an `x, y` tuple or `transform` and optionally a `slick.collision.shapelike`. Moves the entity to the position and updates the shape (if a shape is provided). This does not perform any collision detection at this point.
 
   After moving the entity to the desired position (and updating the shape, if provided), attempts to "push" the entity represented by `item` out of any other entities filtered by `filter`. This can be used, for example, when placing items in the world. Normally, if an entity is **not** overlapping another entity currently, it will **never** overlap another entity. But if you're placing an item due to a mouse click, you might want to use this (or use a query and prevent placing an entity if it doesn't fit!).
@@ -594,7 +594,7 @@ When adding or updating an `item` to the world, you can provide a `slick.collisi
   Instantiates an opaque `slick.tag` instance wrapping `value`. Keep in mind the `tag` field will be the `value` argument, **not** a `slick.tag` instance. All shape definition constructors optionally take a `slick.tag` as the last parameter.
 
 * `slick.newEnum(value: any): slick.enum`
-  
+
   Instantiates a `slick.enum` wrapping `value`. Unlike `slick.newTag`, The `tag` field will be the `slick.enum` instance itself. Thus this makes it easier to do something like this:
 
   ```lua
@@ -650,15 +650,15 @@ The complete list of of shape definitions are:
   This shape definition constructor is useful to easily construct shapes from [simple triangulation, polygonization, and clipping API](#simple-triangulation-polygonization-and-clipping-api). Generating convex polygons from the polygonization or clipping API will be faster than a triangle mesh.
 
 * `slick.newLineSegment(x1: number, y1: number, x2: number, y2: number, tag: slick.tag | slick.enum | nil)`
-  
+
   Creates a single line segment. This is a useful building block of something like Box2D's chain shape.
 
 * `slick.newPolyline(segments: number[][], tag: slick.tag | slick.enum | nil)`
-  
+
   Creates a poly line. Each segment is in the form `{ x1, y1, x2, y2 }`. The points are not connected.
 
 * `slick.newChain(points: number[], tag: slick.tag | slick.enum | nil)`
-  
+
   Creates a chain shape (like in Box2D). The last point connects to the first. `points` is in the form `{ x1, y1, x2, y2, x3, y3, ... }`. Must have at least 3 points. `points` must be even (e.g., there are a valid number of points).
 
 * `slick.newShapeGroup(...shapes: slick.collision.shapeDefinition, tag: slick.tag | slick.enum | nil)`
@@ -1057,7 +1057,7 @@ Constructing this object lets you easily build navigation meshes ready for use w
   Creates a new mesh builder. Optionally can provide a `slick.cache` via `slick.options` (e.g., like with `slick.newWorld`) if you want to re-use a triangulator between your world and the mesh builder.
 
 * `slick.navigation.meshBuilder:addLayer(tag: slick.tag | slick.enum, combineMode: string?)`
-  
+
   Creates a new layer. For the simplest cases, you'll want a `FLOOR` layer and probably also a `WALL` layer.
 
   * `tag`: name of the layer; used internally.
@@ -1096,37 +1096,37 @@ Navigates a `slick.navigation.mesh`. Takes either a manually triangulated `slick
     `slick.navigation.pathOptions` lets you define custom ways to evaluates neighbors, distance, etc via fields:
 
     * `neighbor: fun(from: slick.navigation.triangle, to: slick.navigation.triangle, e: slick.navigation.edge): boolean`
-    
+
       Returns `true` if triangle `to` via edge `e` is a neighbor; `false` otherwise. Defaults to always return `true`. You can use userdata from the two vertices in the edge `e` to return false if, e.g., the edge represents a locked door. Get creative!
-    
+
     * `neighbors: fun(mesh: slick.navigation.mesh, triangle: slick.navigation.triangle): slick.navigation.triangle[] | nil`
 
       Returns a list of `slick.navigation.triangle` from `mesh` (or maybe not - do what you wanna do!) that are neighbors of `triangle`. `neighbor` will still be evaluated per edge (if provided).
-    
+
     * `distance: fun(from: slick.navigation.triangle, to: slick.navigation.triangle, e: slick.navigation.edge): number`
 
       Returns the distance of triangle `from` to triangle `to` via edge `e`. The default implementation returns the Euclidean distance between the centroids of `from` and `to`.
-    
+
     * `heuristic: fun(from: slick.navigation.triangle, goalX: number, goalY: number): number`
 
       Returns the distance of triangle `from` to the goal. The default implementation returns the Euclidean distance between the centroid of `from` to the point `(goalX, goalY)`.
-    
+
     * `yield: fun()`
-      
+
       Called after every node is processed. You can use this to yield (e.g., via `coroutine.yield`) to make path-finding asynchronous and spread it over multiple frames. Default does nothing, so path-finding **will not yield**.
-    
+
     * `optimize: boolean`
 
       Defaults to `true` if unset or `options` is not provided. You probably don't wanna set this to `false` unless you wanna implement your own string pulling algorithm...
-    
+
   * `slick.navigation.path:find(mesh: slick.navigation.mesh, startX: number, startY: number, goalX: number, goalY: number, result: number[]): number[]?, slick.navigation.vertex[]?`
-    
+
     Tries to find the shortest path from `(startX, startY)` to `(goalX, goalY)`. If none is found, returns `nil`. Otherwise, returns a `path` (in the form of { startX, startY, x1, y1, ..., xn, yn, goalX, goalY }) and a list of `slick.navigation.vertex`.
 
     If `result` is provided, it will be cleared and re-used. However, if an array of `slick.navigation.vertex[]` is returned, this array might mutate with the next `slick.navigation.path.find` call; make a deep copy if you need it!
-    
+
   * `slick.navigation.path:nearest(mesh: slick.navigation.mesh, startX: number, startY: number, goalX: number, goalY: number, result: number[]): number[]?, slick.navigation.vertex[]?`
-    
+
     Just like `slick.navigation.path.find`, except it will try and return a path even if `(goalX, goalY)` could not be reached as close to `(goalX, goalY)` as possible.
 
 #### `slick.navigation` geometry
