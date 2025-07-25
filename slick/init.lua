@@ -1,4 +1,4 @@
-if _G.LUA_ENV == "roblox" then return end;local PATH = (...):gsub("[^%.]+$", "")
+if _G.LUA_ENV == "roblox" then return {} end;local PATH = (...):gsub("[^%.]+$", "")
 
 --- @module "slick.cache"
 local cache

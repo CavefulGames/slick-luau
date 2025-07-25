@@ -1,4 +1,4 @@
-if _G.LUA_ENV == "roblox" then return end;local lineSegment = require "@slick/collision/lineSegment"
+if _G.LUA_ENV == "roblox" then return {} end;local lineSegment = require "@slick/collision/lineSegment"
 local point = require "@slick/geometry/point"
 local ray = require "@slick/geometry/ray"
 local rectangle  = require "@slick/geometry/rectangle"
