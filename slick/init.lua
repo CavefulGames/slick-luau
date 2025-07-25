@@ -1,4 +1,4 @@
-local PATH = (...):gsub("[^%.]+$", "")
+if _G.LUA_ENV == "roblox" then return end;local PATH = (...):gsub("[^%.]+$", "")
 
 --- @module "slick.cache"
 local cache
@@ -63,23 +63,23 @@ local function load()
 
     setfenv(0, setmetatable(g, patchedG))
 
-    cache = require("slick.cache")
-    collision = require("slick.collision")
-    draw = require("slick.draw")
-    entity = require("slick.entity")
-    enum = require("slick.enum")
-    geometry = require("slick.geometry")
-    navigation = require("slick.navigation")
-    defaultOptions = require("slick.options")
-    responses = require("slick.responses")
-    shape = require("slick.shape")
-    tag = require("slick.tag")
-    util = require("slick.util")
-    world = require("slick.world")
-    worldQuery = require("slick.worldQuery")
-    worldQueryResponse = require("slick.worldQueryResponse")
+    cache = require("@slick/cache")
+    collision = require("@slick/collision")
+    draw = require("@slick/draw")
+    entity = require("@slick/entity")
+    enum = require("@slick/enum")
+    geometry = require("@slick/geometry")
+    navigation = require("@slick/navigation")
+    defaultOptions = require("@slick/options")
+    responses = require("@slick/responses")
+    shape = require("@slick/shape")
+    tag = require("@slick/tag")
+    util = require("@slick/util")
+    world = require("@slick/world")
+    worldQuery = require("@slick/worldQuery")
+    worldQueryResponse = require("@slick/worldQueryResponse")
 
-    meta = require("slick.meta")
+    meta = require("@slick/meta")
 end
 
 do
