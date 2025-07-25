@@ -440,7 +440,8 @@ type WorldImpl = {
 		y: number,
 		goalX: number,
 		goalY: number,
-		filter: WorldFilterQueryFunc?
+		filter: WorldFilterQueryFunc?,
+		query: WorldQuery?
 	) -> ({ WorldQueryResponse }, number),
 	queryRectangle: (
 		self: World,
