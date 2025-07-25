@@ -436,6 +436,8 @@ type WorldImpl = {
 	project: (
 		self: World,
 		item: any,
+		x: number,
+		y: number,
 		goalX: number,
 		goalY: number,
 		filter: WorldFilterQueryFunc?
