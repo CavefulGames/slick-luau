@@ -842,37 +842,4 @@ export type CollisionShapelike = CollisionShape | ShapeGroup | CollisionShapeInt
 -- Geometric shape union types
 export type GeometryShape = Point | Ray | Rectangle | Segment
 
--- Main library types for factory functions
-export type SlickLibrary = {
-	newWorld: typeof((function(a: World)
-		return a.new
-	end)(nil :: any)),
-	newCache: (options: Options) -> Cache,
-	newWorldQuery: (world: World) -> WorldQuery,
-	newTransform: (
-		x: number?,
-		y: number?,
-		rotation: number?,
-		scaleX: number?,
-		scaleY: number?,
-		offsetX: number?,
-		offsetY: number?
-	) -> Transform,
-	newRectangleShape: (x: number, y: number, w: number, h: number, tag: (Tag | Enum)?) -> ShapeDefinition,
-	newCircleShape: (x: number, y: number, radius: number, segments: number?, tag: (Tag | Enum)?) -> ShapeDefinition,
-	newPolygonShape: (points: { number }, tag: (Tag | Enum)?) -> ShapeDefinition,
-	newLineSegmentShape: (x1: number, y1: number, x2: number, y2: number, tag: (Tag | Enum)?) -> ShapeDefinition,
-	newChainShape: (points: { number }, tag: (Tag | Enum)?) -> ShapeDefinition,
-	newPolylineShape: (points: { number }, tag: (Tag | Enum)?) -> ShapeDefinition,
-	newPolygonMeshShape: (contours: { { number } }, tag: (Tag | Enum)?) -> ShapeDefinition,
-	newMeshShape: (polygons: { { number } }, tag: (Tag | Enum)?) -> ShapeDefinition,
-	newShapeGroup: (...ShapeDefinition | Tag) -> ShapeDefinition,
-	newTag: (value: any) -> Tag,
-	newEnum: (value: any) -> Enum,
-	triangulate: (contours: { { number } }) -> { { number } },
-	polygonize: (contours: { { number } }) -> { { number } },
-	clip: (subject: { number }, clip: { number }, operation: string) -> { { number } },
-	drawWorld: ((world: World, options: DrawOptions?) -> ())?,
-}
-
 return {}
